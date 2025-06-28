@@ -3,10 +3,32 @@
 
     const addNamesToList = () => {
         const userName = $store.inputName;
-
-        $store.names.push(userName)
-        $store.inputName = '';
+        if(validate(userName)){
+            /// ADD TO NAMES ARRAY
+            $store.names.push(userName)
+            $store.inputName = '';
+            $store.showError = false;
+        } else {
+            /// ERROR
+             $store.showError = true;
+        }
     }
+
+    const validate = (value) => {
+        $store.error = '';
+        if(value === ''){
+            $store.error = 'Sorry, no empty name';
+            return false;
+        }
+
+        if($store.names.includes(value)){
+            $store.error = 'Sorry, names must be unique';
+            return false;
+        }
+        return true;
+    }
+
+
 
 </script>
 
@@ -20,7 +42,12 @@
         <button onclick={addNamesToList}>Add</button>
     </div>
 
-
+    {#if $store.showError}
+        <div class="error_label">
+            {$store.error}
+        </div>
+    {/if}
+    
     <div class="list_of_names">
         {#each $store.names as name, index(name) }
             <button>
