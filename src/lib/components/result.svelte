@@ -1,5 +1,6 @@
 <script>
     import { onMount } from "svelte";
+    import { fade } from 'svelte/transition';
     let {store} = $props();
 
     const getRandomName = () => {
@@ -39,10 +40,10 @@
 
 </script>
 
-<div class="container">
+<div class="container" in:fade={{duration:500}}>
     <div class="result_container">
         <h1>The looser is:</h1>
-        <div class="result_value">
+        <div class="result_value" in:fade={{delay:1000,duration:500}}>
             {$store.result}
         </div>
 

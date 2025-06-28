@@ -1,4 +1,5 @@
 <script>
+    import { fade } from 'svelte/transition';
     let {store} = $props();
 
     const addNamesToList = () => {
@@ -53,7 +54,7 @@
 
 </script>
 
-<div class="container">
+<div class="container" in:fade={{duration:500}}>
     <div class="logo">
         <h1>Who pays the bill</h1>
     </div>
@@ -64,14 +65,14 @@
     </div>
 
     {#if $store.showError}
-        <div class="error_label">
+        <div class="error_label" in:fade={{duration:500}}>
             {$store.error}
         </div>
     {/if}
     
     <div class="list_of_names">
         {#each $store.names as name, index(name) }
-            <button onclick={()=> removeName(index)}>
+            <button onclick={()=> removeName(index)} transition:fade>
                 {name}
             </button>
         {/each}
