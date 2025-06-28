@@ -40,6 +40,16 @@
         })
     }
 
+    const showResults = () => {
+        $store.error = '';
+        if($store.names.length >= 2){
+            $store.state = false;
+        }else {
+            $store.error = 'You need at least 2 names';
+            $store.showError = true;  
+        }
+    }
+
 
 </script>
 
@@ -66,5 +76,12 @@
             </button>
         {/each}
     </div>
+
+    <button
+        class="action_button"
+        onclick={showResults}
+    >
+         Who's the Looser ?
+    </button>
 
 </div>
