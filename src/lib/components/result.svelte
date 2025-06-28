@@ -9,7 +9,11 @@
     const generateResult = () => {
         let rand = getRandomName();
 
-            /// CODE
+        if($store.result !== ''){
+            while(rand === $store.result){
+                rand = getRandomName();
+            }
+        }
 
         $store.result = rand;
     }
@@ -17,6 +21,22 @@
     onMount(()=>{
         generateResult()
     })
+
+    const getNewResult = () => {
+        generateResult()
+    }
+
+    const resetApp = () => {
+        store.set({
+            state:true,
+            inputName:'',
+            names:[],
+            error:'',
+            showError:false,
+            result:'' 
+        })
+    }
+
 </script>
 
 <div class="container">
@@ -26,11 +46,15 @@
             {$store.result}
         </div>
 
-        <button class="action_button">
+        <button class="action_button"
+            onclick={resetApp}
+        >
             Start over
         </button>
         <br/>
-        <button class="action_button btn2">
+        <button class="action_button btn2"
+            onclick={getNewResult}
+        >
             Get a new name
         </button>
 
